@@ -12,6 +12,41 @@ const FormProducto = () => {
   const [descripcion, setdescripcion] = useState('')
   const [codigo, setcodigo] = useState('')
   const [producto, setproducto] = useState(null)
+  const [crear, setcrear] = useState(false)
+  
+
+
+  const validarFormulario = () =>{
+    if (!nombre.trim()) {
+        alert('debe ingresar un nombre')
+        return false
+    }else if (!proveedor.trim()) {
+      alert('debe ingresar un proveedor')
+        return false
+    }else if (!cantidad.trim()) {
+      alert('debe ingresar un cantidad')
+        return false
+    }else if (!precio.trim()) {
+      alert('debe ingresar un precio')
+        return false
+    }else if (!fecha.trim()) {
+      alert('debe ingresar un fecha')
+        return false
+    }else if (!codigo.trim()) {
+      alert('debe ingresar un codigo')
+        return false
+    }else if (!descripcion.trim()) {
+      alert('debe ingresar una descripcion')
+        return false
+    }else{
+      return true
+    }
+
+
+
+
+
+}
 
   useEffect(() => {
   
@@ -29,7 +64,15 @@ const FormProducto = () => {
     
   })
   
-
+  const resetear = () =>{
+    setnombre('')
+    setcantidad('')
+    setcodigo('')
+    setdescripcion('')
+    setfecha('')
+    setprecio('')
+    setproveedor('')
+  }
   const guardarProduc = async () => {
     
     try{
@@ -37,8 +80,9 @@ const FormProducto = () => {
       const db = firebase.firestore()
      
       
-      const data = await db.collection('Productos').add(producto)
+      const data = await db.collection('productos').add(producto)
       console.log(producto);
+      resetear()
 
       
 
@@ -50,6 +94,9 @@ const FormProducto = () => {
 
   return (
     <>
+      
+      {crear==true ? 
+      <>
       <div className="form-control">
       <label  className="form-label">CREAR PRODUCTO</label>
         <div className="row">
@@ -62,6 +109,7 @@ const FormProducto = () => {
               className="form-control"
               id="nombreProducto"
               placeholder="Pera"
+              value={nombre}
               onChange={e => {setnombre(e.target.value)
               console.log(nombre);
               }}
@@ -76,6 +124,7 @@ const FormProducto = () => {
               className="form-control"
               id="descripcionProducto"
               placeholder="EMPRESA"
+              value={proveedor}
               onChange={e => (setproveedor(e.target.value))}
             ></input>
           </div>
@@ -88,6 +137,7 @@ const FormProducto = () => {
               className="form-control"
               id="precio"
               placeholder="8"
+              value={precio}
               onChange={e => (setprecio(e.target.value))}
             ></input>
           </div>
@@ -102,6 +152,7 @@ const FormProducto = () => {
               className="form-control"
               id="cantidad"
               placeholder="8"
+              value={cantidad}
               onChange={e => (setcantidad(e.target.value))}
             ></input>
           </div>
@@ -114,6 +165,7 @@ const FormProducto = () => {
               className="form-control"
               id="fecha"
               placeholder="8"
+              value={fecha}
               onChange={e => {setfecha(e.target.value)
               
               }}
@@ -128,20 +180,22 @@ const FormProducto = () => {
               className="form-control"
               id="codigo"
               placeholder="8"
+              value={codigo}
               onChange={e => (setcodigo(e.target.value))}
             ></input>
           </div>
         </div>
         <div className="row">
         <div className="col 3"><label htmlFor="Descripcion" className="form-label">Descripcion</label>
-    <textarea className="form-control" id="Descripcion" onChange={e => (setdescripcion(e.target.value))}></textarea>
+    <textarea className="form-control" id="Descripcion" value={descripcion} onChange={e => (setdescripcion(e.target.value))}></textarea>
         </div>
         </div>
         <div className="d-flex justify-content-evenly">
-        <button type="button" className="btn btn-success" onClick={guardarProduc}>Guardar</button>
-        <button type="button" className="btn btn-danger">Cancelar</button>
+        <button type="button" className="btn btn-success" onClick={validarFormulario ? guardarProduc: alert('error')}>Guardar</button>
+        <button type="button" className="btn btn-danger" onClick={()=>(setcrear(false),resetear())}>Cancelar</button>
         </div>
       </div>
+      </> : <button className='btn btn-primary' onClick={()=>(setcrear(true))}> crear</button>}
     </>
   );
 };

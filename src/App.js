@@ -8,12 +8,14 @@ import PeticionApi from './components/PeticionApi';
 import Formulario from './components/Formulario';
 import FormProducto from './components/FormProducto/FormProducto'
 import './App.css';
+import ListProductos from './components/ListProductos/ListProductos';
+import VistaCompleta from './components/vista/VistaCompleta';
 
 function App() {
   return (
   <>
       
-      <FormProducto />
+    <VistaCompleta />
   </>
   );
 }

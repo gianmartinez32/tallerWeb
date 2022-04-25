@@ -10,6 +10,10 @@ const Formulario = () => {
     const [modoEdicion, setModoEdicion] = React.useState(false)
     const [error, setError] = React.useState(null)
 
+
+
+
+    
     React.useEffect(()=>{
          const obtenerDatos= async () =>{
              try{
