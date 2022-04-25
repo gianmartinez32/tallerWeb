@@ -57,9 +57,9 @@ const ListProductos = () => {
         <tbody>
           {productList.map((producto) => {
             return (
-              <>
-                <tr key={producto.id}>
-                  <th scope="row">{producto.codigo}</th>
+              
+                <tr key={producto.id} >
+                  <th scope="row" >{producto.codigo}</th>
                   <td>{producto.nombre}</td>
                   <td>{producto.proveedor}</td>
                   <td>{producto.precio}</td>
@@ -71,7 +71,7 @@ const ListProductos = () => {
                   </td>
 
                 </tr>
-              </>
+              
             );
           })}
         </tbody>
