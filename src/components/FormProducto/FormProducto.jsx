@@ -17,36 +17,13 @@ const FormProducto = () => {
 
 
   const validarFormulario = () =>{
-    if (!nombre.trim()) {
-        alert('debe ingresar un nombre')
-        return false
-    }else if (!proveedor.trim()) {
-      alert('debe ingresar un proveedor')
-        return false
-    }else if (!cantidad.trim()) {
-      alert('debe ingresar un cantidad')
-        return false
-    }else if (!precio.trim()) {
-      alert('debe ingresar un precio')
-        return false
-    }else if (!fecha.trim()) {
-      alert('debe ingresar un fecha')
-        return false
-    }else if (!codigo.trim()) {
-      alert('debe ingresar un codigo')
-        return false
-    }else if (!descripcion.trim()) {
-      alert('debe ingresar una descripcion')
-        return false
+    if (nombre=='' || proveedor=='' || precio == '' || cantidad == '' || fecha=='' || descripcion=='' || codigo=='') {
+        return true
+        
     }else{
-      return true
+        return false
     }
-
-
-
-
-
-}
+    }
 
   useEffect(() => {
   
@@ -191,7 +168,7 @@ const FormProducto = () => {
         </div>
         </div>
         <div className="d-flex justify-content-evenly">
-        <button type="button" className="btn btn-success" onClick={validarFormulario ? guardarProduc: alert('error')}>Guardar</button>
+        <button type="button" className="btn btn-success" onClick={guardarProduc} disabled={validarFormulario()}>Guardar</button>
         <button type="button" className="btn btn-danger" onClick={()=>(setcrear(false),resetear())}>Cancelar</button>
         </div>
       </div>

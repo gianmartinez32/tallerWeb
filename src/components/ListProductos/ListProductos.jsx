@@ -1,23 +1,22 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../../firebase";
 
-const ListProductos = () => {
+const ListProductos = ({ setProductoEditado }) => {
   const [productList, setproductList] = useState([]);
-  const [id, setid] = useState('')
-  const [edicion, setEdicion] = useState(false)
-
-  const eliminar = async id =>{
-    try{
-        const db = firebase.firestore()
-        await db.collection('productos').doc(id).delete()
-        const aux = productList.filter(item => item.id !== id)
-        setproductList(aux)
-    }catch(error){
-        console.log(error)
+  const [id, setid] = useState("");
+  const [edicion, setEdicion] = useState(false);
+  
+  const eliminar = async (id) => {
+    try {
+      const db = firebase.firestore();
+      await db.collection("productos").doc(id).delete();
+      const aux = productList.filter((item) => item.id !== id);
+      setproductList(aux);
+    } catch (error) {
+      console.log(error);
     }
-
-    
-}
+  };
 
   const obtenerDatos = async () => {
     try {
@@ -44,6 +43,7 @@ const ListProductos = () => {
       <table className="table">
         <thead>
           <tr>
+            <th scope="col">Imagen</th>
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
             <th scope="col">proveedor</th>
@@ -57,21 +57,31 @@ const ListProductos = () => {
         <tbody>
           {productList.map((producto) => {
             return (
-              
-                <tr key={producto.id} >
-                  <th scope="row" >{producto.codigo}</th>
-                  <td>{producto.nombre}</td>
-                  <td>{producto.proveedor}</td>
-                  <td>{producto.precio}</td>
-                  <td>{producto.cantidad}</td>
-                  <td>{producto.fecha}</td>
-                  <td>{producto.descripcion}</td>
-                  <td><button className="btn btn-primary" value={producto.id} >Editar</button>
-                  <button className="btn btn-danger" onClick={()=>(eliminar(producto.id))}>Borrar</button>
-                  </td>
-
-                </tr>
-              
+              <tr key={producto.id}>
+                <th scope="row"><img src="https://picsum.photos/50" alt="foto" /></th>
+                <th scope="row">{producto.codigo}</th>
+                <td>{producto.nombre}</td>
+                <td>{producto.proveedor}</td>
+                <td>{producto.precio}</td>
+                <td>{producto.cantidad}</td>
+                <td>{producto.fecha}</td>
+                <td>{producto.descripcion}</td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    value={producto.id}
+                    onClick={() => setProductoEditado(producto)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => eliminar(producto.id)}
+                  >
+                    Borrar
+                  </button>
+                </td>
+              </tr>
             );
           })}
         </tbody>

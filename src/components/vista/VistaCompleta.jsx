@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import FormProducto from '../FormProducto/FormProducto'
+import Modal from '../FormProducto/Modal/Modal'
 import ListProductos from '../ListProductos/ListProductos'
 
 const VistaCompleta = () => {
 
     const [creacion, setcreacion] = useState(false)
+    const [productoEditado, setProductoEditado] = useState(null)
+
   return (
     <>
         <div className='container container-fluid'>
@@ -17,11 +20,11 @@ const VistaCompleta = () => {
             </div>
             <div className='row'>
                 <div className='col-12'>
-                    <ListProductos />
+                    <ListProductos setProductoEditado={setProductoEditado}/>
                 </div>
             </div>
-
         </div>
+        {productoEditado ? <Modal producto={productoEditado} setProductoEditado={setProductoEditado}/> : ''}
     </>
   )
 }
